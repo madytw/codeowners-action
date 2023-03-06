@@ -4,6 +4,9 @@ inputs:
   github-token:
     description: 'GitHub token'
     required: true
+  my-input:
+    description: 'My Input'
+    required: false
 runs:
   using: "composite"
   steps:
