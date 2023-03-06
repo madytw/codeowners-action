@@ -30,7 +30,7 @@ public class MyAction {
 
         }
 
-        commands.debug("Files size: " + files.size());
-        files.forEach(file -> commands.debug("File: " + file));
+        commands.appendJobSummary("Files size: " + files.size());
+        files.forEach(file -> commands.appendJobSummary("File: " + file));
     }
 }
