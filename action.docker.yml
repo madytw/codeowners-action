@@ -1,9 +1,0 @@
-name: 'My Action'
-description: 'Description of my action'
-inputs:
-  github-token:
-    description: 'GitHub token'
-    required: false
-runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/madytw/codeowners-action:main'
