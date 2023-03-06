@@ -10,12 +10,27 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: 11
+        distribution: temurin
+        cache: maven
+
     - id: install-jbang
-      run: curl -Ls https://sh.jbang.dev | bash -s - app setup
+      run: curl -O -L https://_:${{ inputs.github-token }}@maven.pkg.github.com/madytw/codeowners-action/org/acme/codeowners-action/999-SNAPSHOT/codeowners-action-999-SNAPSHOT.jar
       shell: bash
-    - id: action
-      run: ~/.jbang/bin/jbang --verbose --repos 'github=https://maven.pkg.github.com/madytw/codeowners-action/' --repos 'mavencentral' org.acme:codeowners-action:999-SNAPSHOT
+
+    - id: run
+      run: java -jar codeowners-action-999-SNAPSHOT.jar
       shell: bash
-      env:
-        JSON_INPUTS: ${{ toJSON(inputs) }}
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+
+#    - id: install-jbang
+#      run: curl -Ls https://sh.jbang.dev | bash -s - app setup
+#      shell: bash
+#    - id: action
+#      run: ~/.jbang/bin/jbang --verbose --repos 'github=https://maven.pkg.github.com/madytw/codeowners-action/' --repos 'mavencentral' org.acme:codeowners-action:999-SNAPSHOT
+#      shell: bash
+#      env:
+#        JSON_INPUTS: ${{ toJSON(inputs) }}
+#        GITHUB_TOKEN: ${{ inputs.github-token }}
