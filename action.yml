@@ -3,7 +3,16 @@ description: 'Description of my action'
 inputs:
   github-token:
     description: 'GitHub token'
-    required: false
+    required: true
 runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/madytw/codeowners-action:main'
+  using: "composite"
+  steps:
+    - id: install-jbang
+      run: curl -Ls https://sh.jbang.dev | bash -s - app setup
+      shell: bash
+    - id: action
+      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/madytw/codeowners-action/' --repos 'mavencentral' org.acme:codeowners-action:999-SNAPSHOT
+      shell: bash
+      env:
+        JSON_INPUTS: ${{ toJSON(inputs) }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
